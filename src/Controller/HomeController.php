@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * Class HomeController
  * @package App\Controller
@@ -16,9 +17,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home_page")
      * @Route("/dashboard", name="home_p")
+     *
+     * @return Response
      */
-    public function dashboardHome(Request $request)
+    public function dashboardHome(Request $request): Response
     {
+        $discountCoupons = array();
         $discountCouponRepo = $this->getDoctrine()->getRepository('Main:DiscountCoupons');
         $discountCoupons = $discountCouponRepo->findAll();
 
@@ -27,8 +31,10 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/add-coupon", name="_add_coupon")
+     *
+     * @return Response
      */
-    public function addCoupon()
+    public function addCoupon(): Response
     {
         return $this->render('discount_coupon_dashboard/add_coupon.html.twig');
     }
@@ -41,7 +47,7 @@ class HomeController extends AbstractController
      *
      * @return Response
      */
-    public function updateCouponStatusAction(Request $request, CouponManager $couponManager)
+    public function updateCouponStatusAction(Request $request, CouponManager $couponManager): Response
     {
         $content = $request->getContent();
         if (empty($content)) {
@@ -64,7 +70,7 @@ class HomeController extends AbstractController
         }
         // Check coupon id valid.
         $discountCoupon = $this->getDoctrine()->getRepository('Main:DiscountCoupons')->findOneById($couponId);
-        if(empty($discountCoupon)){
+        if (empty($discountCoupon)) {
             return new Response(json_encode("Malformed Request. No coupon found."), 400);
         }
         // Update status.
@@ -84,7 +90,7 @@ class HomeController extends AbstractController
      *
      * @return Response
      */
-    public function submitCouponAction(Request $request, CouponManager $couponManager)
+    public function submitCouponAction(Request $request, CouponManager $couponManager): Response
     {
         $inputData = array();
         $content = $request->getContent();

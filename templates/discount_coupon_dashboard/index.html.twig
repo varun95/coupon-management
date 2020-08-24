@@ -18,61 +18,67 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-12 mar-top-10 table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead class="bg-primary" style="font-size: 16px !important;">
-                    <tr>
-                        <th style="width: 5%">S.no.</th>
-                        <th style="width: 10%">Name</th>
-                        <th style="width: 25%">Description</th>
-                        <th style="width: 10%">Amount</th>
-                        <th style="width: 10%">Start</th>
-                        <th style="width: 10%">Expiry</th>
-                        <th style="width: 10%">Max Redeem</th>
-                        <th style="width: 10%">Max Redeem Per User</th>
-                        <th style="width: 10%">Action</th>
-                    </tr>
-                    </thead>
-                    {% for discount_coupon in discount_coupons %}
-                        {% if (discount_coupon.expiryDate is defined
-                            and discount_coupon.expiryDate != null
-                            and 'now'|date('U') > discount_coupon.expiryDate|date('U'))
-                            or
-                            (discount_coupon.flag is not null and discount_coupon.flag == inactive_flag) %}
-                            <tr class="danger">
-                        {% else %}
-                            <tr class="success">
-                        {% endif %}
-                            <td>{{ discount_coupon.id }}</td>
-                            <td><b>{{ discount_coupon.name }}</b></td>
-                            <td>{{ discount_coupon.description }}</td>
-                            <td>{{ discount_coupon.discountAmount }}</td>
-                            <td>{{ discount_coupon.startDate|date("M jS g:ia") }}</td>
-                            <td>{{ discount_coupon.expiryDate|date("M jS g:ia") }}</td>
-                            <td>{{ discount_coupon.maxRedeem }}</td>
-                            <td>{{ discount_coupon.maxRedeemPerUser }}</td>
-                            <td>
-                                <span class="update_coupon" data-id="{{ discount_coupon.id }}">
-                                    <i class="fas fa-edit fa-lg text-warning" title="Edit coupon"
-                                       style="cursor: pointer"></i>
-                                </span>
-                                &nbsp; &nbsp;
-                                <span class="coupon_update_status" data-id="{{ discount_coupon.id }}"
-                                      data-update-status-coupon-url="{{ path('_update_coupon_status_action') }}"
-                                      data-status-action="{{ discount_coupon.flag != inactive_flag ? 'disable':'enable' }}">
-                                        {% if discount_coupon.flag != inactive_flag %}
-                                            <i class="fas fa-minus-circle fa-lg text-danger" title="Disable coupon"
-                                               style="cursor: pointer;"></i>
-                                        {% else %}
-                                            <i class="fas fa-check-square fa-lg text-success" title="Enable coupon"
-                                               style="cursor: pointer;"> </i>
-                                        {% endif %}
-                                </span>
-                            </td>
+            {% if discount_coupons is not defined or discount_coupons is empty or discount_coupons|length == 0 %}
+               <h3 class="text-center" style="margin-top: 3.2cm !important;">
+                   Sorry, currently there are no discount coupons generated in the system.
+               </h3>
+            {% else %}
+                <div class="col-xs-12 mar-top-10 table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="bg-primary" style="font-size: 16px !important;">
+                        <tr>
+                            <th style="width: 5%"></th>
+                            <th style="width: 10%">Name</th>
+                            <th style="width: 25%">Description</th>
+                            <th style="width: 10%">Amount</th>
+                            <th style="width: 10%">Start</th>
+                            <th style="width: 10%">Expiry</th>
+                            <th style="width: 10%">Max Redeem</th>
+                            <th style="width: 10%">Max Redeem Per User</th>
+                            <th style="width: 10%">Action</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            </div>
+                        </thead>
+                        {% for discount_coupon in discount_coupons %}
+                            {% if (discount_coupon.expiryDate is defined
+                                and discount_coupon.expiryDate != null
+                                and 'now'|date('U') > discount_coupon.expiryDate|date('U'))
+                                or
+                                (discount_coupon.flag is not null and discount_coupon.flag == inactive_flag) %}
+                                <tr class="danger">
+                            {% else %}
+                                <tr class="success">
+                            {% endif %}
+                                <td>{{ discount_coupon.id }}</td>
+                                <td><b>{{ discount_coupon.name }}</b></td>
+                                <td>{{ discount_coupon.description }}</td>
+                                <td>{{ discount_coupon.discountAmount }}</td>
+                                <td>{{ discount_coupon.startDate|date("M jS g:ia") }}</td>
+                                <td>{{ discount_coupon.expiryDate|date("M jS g:ia") }}</td>
+                                <td>{{ discount_coupon.maxRedeem }}</td>
+                                <td>{{ discount_coupon.maxRedeemPerUser }}</td>
+                                <td>
+                                    <span class="update_coupon" data-id="{{ discount_coupon.id }}">
+                                        <i class="fas fa-edit fa-lg text-warning" title="Edit coupon"
+                                           style="cursor: pointer"></i>
+                                    </span>
+                                    &nbsp; &nbsp;
+                                    <span class="coupon_update_status" data-id="{{ discount_coupon.id }}"
+                                          data-update-status-coupon-url="{{ path('_update_coupon_status_action') }}"
+                                          data-status-action="{{ discount_coupon.flag != inactive_flag ? 'disable':'enable' }}">
+                                            {% if discount_coupon.flag != inactive_flag %}
+                                                <i class="fas fa-minus-circle fa-lg text-danger" title="Disable coupon"
+                                                   style="cursor: pointer;"></i>
+                                            {% else %}
+                                                <i class="fas fa-check-square fa-lg text-success" title="Enable coupon"
+                                                   style="cursor: pointer;"> </i>
+                                            {% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
