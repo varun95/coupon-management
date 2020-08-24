@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/images/coupon_img.ico') }}"/>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=0 shrink-to-fit=no">
+    <!--title-->
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- Stylesheets -->
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <!-- Font -->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <!-- Datetime picker CSS -->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+        <!-- Renders a link tag (if your module requires any CSS)
+             <link rel="stylesheet" href="/build/app.less"> -->
+    {% endblock %}
+</head>
+<body>
+<!-- body -->
+<!-- Navbar --->
+<nav class="navbar navbar-dark bg-info">
+    <a class="navbar-brand" href="{{ path('home_page') }}">
+        <i class="fas fa-tags fa-lg" style="color: goldenrod;"></i>
+        <span style="color: black;">Coupons Dashboard</span>
+    </a>
+</nav>
+<!-- Navbar ends -->
+<!-- Overlay code --->
+<div id="circularG">
+    <div id="circularG_1" class="circularG"></div>
+    <div id="circularG_2" class="circularG"></div>
+    <div id="circularG_3" class="circularG"></div>
+    <div id="circularG_4" class="circularG"></div>
+    <div id="circularG_5" class="circularG"></div>
+    <div id="circularG_6" class="circularG"></div>
+    <div id="circularG_7" class="circularG"></div>
+    <div id="circularG_8" class="circularG"></div>
+</div>
+<div class="layer">
+</div>
+<!-- Overlay code ends -->
+{% block body %}
+{% endblock %}
+<!-- Js -->
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <!-- Datetime picker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Renders app.js & a webpack runtime.js file
+        <script src="/build/runtime.js"></script>
+        <script src="/build/app.js"></script> -->
+{% endblock %}
+</body>
+</html>
